@@ -11,16 +11,16 @@ description: >-
   esto en fases", "qué se hace en cada fase y el producto final", "antes de
   construir dame el plan", "arma el plan de esto", o invoque /planificador — tras
   un GO o ante algo concreto por construir. NO es para juzgar si hacerlo (eso es
-  validador), ni para proyectos nuevos (eso es /architect), ni para cambios
-  grandes cross-repo o migraciones (eso es /architect-brownfield). Es el eslabón
-  "planificar" entre el GO y la construcción.
+  validador), ni para proyectos nuevos, cambios grandes cross-repo o
+  migraciones (eso pide un diseño completo, por ejemplo con /architect). Es el
+  eslabón "planificar" entre el GO y la construcción.
 ---
 
 # planificador — del GO al plan por fases
 
 ## Por qué existe
 
-En el pipeline del usuario —divergir (walle) → juzgar (validador) → **planificar** → construir— faltaba casa para el paso de planificar. Después de un GO, el usuario siempre pide lo mismo a mano: "dame un plan por fases, qué se hace en cada una, y el producto final". Esta skill formaliza ese paso para que salga siempre con la misma forma.
+En el pipeline —divergir (lluvia de ideas) → juzgar (validador) → **planificar** → construir— faltaba casa para el paso de planificar. Después de un GO, el usuario siempre pide lo mismo a mano: "dame un plan por fases, qué se hace en cada una, y el producto final". Esta skill formaliza ese paso para que salga siempre con la misma forma.
 
 Y hace una cosa más, que es la razón real de existir: **separa el plan del loop.** El error que evita es creer que todo plan por fases se puede "activar en un loop y desentenderse". El trabajo de producto real tiene decisiones tuyas y datos externos metidos en medio (qué opción prefieres, qué plantilla tienes, la aprobación de un tercero). Ese trabajo se **planifica**, no se automatiza. La skill lo dice de frente en vez de venderte una tanda desatendida que se atasca en la primera puerta.
 
@@ -37,16 +37,16 @@ Contexto natural: **después de un GO del validador**, o cuando Claude Code prop
 
 **No se activa** —y esto la separa de sus vecinas—:
 - "¿debería hacer esto?" / "¿es prudente ahora?" → **validador** (juzgar), no planificar.
-- Proyecto nuevo desde cero → **`/architect`**.
-- Cambio grande, cross-repo o migración → **`/architect-brownfield`** (blueprint de 20 secciones, parity/cutover, tasks.json). Si el trabajo es de ese tamaño, la skill lo dice y redirige.
+- Proyecto nuevo desde cero → necesita un diseño completo, no un plan corto (por ejemplo **`/architect`**, de [the-architect](https://github.com/hildemarosolis/the-architect)).
+- Cambio grande, cross-repo o migración → necesita un blueprint (por ejemplo **`/architect-brownfield`**: blueprint de 20 secciones, parity/cutover, tasks.json). Si el trabajo es de ese tamaño, la skill lo dice y redirige.
 - Pedir ejecutar/codear → flujo normal.
 
 ## Alcance (léelo antes de planificar)
 
 Esta skill es para trabajo **corto o mediano dentro de un proyecto que ya existe**. Antes de escribir el plan, mide el tamaño y redirige si hace falta:
 
-- Huele a **proyecto nuevo** → para y manda a `/architect`.
-- Huele a **cambio grande / cross-repo / migración / contrato entre dos sistemas** → para y manda a `/architect-brownfield`. No hagas un plan corto de algo que necesita un blueprint con parity y cutover.
+- Huele a **proyecto nuevo** → para y manda a un diseño completo (`/architect`, si está instalado).
+- Huele a **cambio grande / cross-repo / migración / contrato entre dos sistemas** → para y manda a un blueprint (`/architect-brownfield`, si está instalado). No hagas un plan corto de algo que necesita un blueprint con parity y cutover.
 - El trabajo **aún no está decidido** (no hay GO) → para y manda al `/validador`.
 
 Redirigir a tiempo vale más que entregar el plan equivocado.
@@ -113,12 +113,12 @@ Entrega exactamente esta estructura, en español, sin preámbulo:
 | No es | Porque |
 |---|---|
 | El validador | el validador juzga SI hacerlo (GO/NO-GO); planificador asume el GO y arma el CÓMO por fases |
-| walle | walle abre caminos (diverge); planificador ordena en fases el camino ya elegido |
-| `/architect` | architect diseña proyectos nuevos enteros; esto es trabajo corto-mediano en un repo que ya existe |
-| `/architect-brownfield` | brownfield hace blueprint de 20 secciones con parity/cutover para cambios grandes; esto es el plan ligero para lo pequeño-mediano |
+| Una lluvia de ideas | la lluvia de ideas abre caminos (diverge); planificador ordena en fases el camino ya elegido |
+| Diseño de proyecto (`/architect`) | architect diseña proyectos nuevos enteros; esto es trabajo corto-mediano en un repo que ya existe |
+| Blueprint de cambio grande (`/architect-brownfield`) | brownfield hace blueprint de 20 secciones con parity/cutover para cambios grandes; esto es el plan ligero para lo pequeño-mediano |
 | Un lanzador de loops | solo arma el loop cuando el trabajo es mecánico y sin puertas; si tiene decisiones tuyas, entrega un plan-guía |
 | Ejecución | no escribe código; entrega el plan y para |
 
 ---
 
-**Lugar en el pipeline:** divergir (`/walle`) → juzgar (`/validador`) → **planificar (`/planificador`)** → construir.
+**Lugar en el pipeline:** divergir (lluvia de ideas) → juzgar ([`/validador`](https://github.com/hildemarosolis/validador)) → **planificar (`/planificador`)** → construir.

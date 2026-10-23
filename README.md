@@ -40,9 +40,9 @@ Reinicia la app. Úsala con `/planificador` o pidiendo «dame un plan por fases�
 
 `planificador` es el tercer paso de una forma de trabajar:
 
-**divergir** (`walle`) → **juzgar** ([`validador`](https://github.com/hildemarosolis/validador)) → **planificar** (`planificador`) → **construir**.
+**divergir** (una lluvia de ideas) → **juzgar** ([`validador`](https://github.com/hildemarosolis/validador)) → **planificar** (`planificador`) → **construir**.
 
-Funciona solo. Las menciones a `walle` o a `/architect` dentro de la skill son a otras herramientas opcionales: si no las tienes, la IA simplemente te dirá que ese trabajo no es para el planificador.
+Funciona solo. Las menciones a `/architect` dentro de la skill son a una herramienta opcional, [the-architect](https://github.com/hildemarosolis/the-architect): si no la tienes, la IA simplemente te dirá que ese trabajo no es para el planificador.
 
 ## Licencia
 
